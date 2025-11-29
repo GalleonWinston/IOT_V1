@@ -87,3 +87,25 @@ Run the Flask application:
 
 ```bash
 python3 main.py
+
+---
+
+## 4. 🌐 Frontend Setup (React / Node)
+
+### 4.1. Navigate and Install Dependencies
+
+1.  Navigate to the frontend directory:
+    ```bash
+    cd ../frontend
+    ```
+2.  Install the Node package dependencies:
+    ```bash
+    npm install
+    ```
+
+### 4.2. Start the Frontend Server
+
+Start the React development server. It typically runs on port 5173:
+
+```bash
+npm run dev
