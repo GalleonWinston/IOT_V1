@@ -87,6 +87,7 @@ Run the Flask application:
 
 ```bash
 python3 main.py
+```
 
 ---
 
