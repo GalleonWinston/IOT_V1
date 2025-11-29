@@ -1,34 +1,89 @@
-# requirements
-make sure you have node and python install in your system and mysql server
+# EcoBin IoT Portal Project Readme
 
+This project implements a Smart Waste Management system with a React/TypeScript frontend and a Flask/Python backend, using JWTs for authentication and MySQL for data persistence.
 
+## 1. ⚙️ Project Overview
 
-# Navigate to backend directory
-cd backend
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Frontend** | React, TypeScript, Tailwind CSS, Zustand | User interface for monitoring dashboards, handles client-side authentication flow. |
+| **Backend** | Flask, Python, Flask-JWT-Extended | REST API for authentication (Login, Register, Logout), data serving, and JWT blocklisting. |
+| **Database** | MySQL, Flask-SQLAlchemy, Flask-Migrate | Stores user accounts and waste management data models. |
 
-# set up your mysql server
+---
 
-# Set up virtual environment and install dependencies
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+## 2. ⬇️ Setup Guide
 
-# Configure environment
-export FLASK_APP=main.py  # Windows: set FLASK_APP=main.py
+### Prerequisites
 
-# Initialize database
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
+Before you begin, ensure the following tools are installed on your system:
 
-# Start backend server
-python3 main.py # windoes: python3 main.py
+* **Node.js** (and `npm`)
+* **Python 3**
+* **MySQL Server** (Running and accessible)
 
+---
 
-# Navigate to frontend directory
-cd frontend
-# install dependencies
-npm install
+## 3. 🐍 Backend Setup (Flask / Python)
 
-# Start frontend server
-npm run dev
+### 3.1. Navigate and Install Dependencies
+
+1.  Change into the backend directory:
+    ```bash
+    cd IOT_V1/backend
+    ```
+2.  Set up a Python virtual environment:
+    ```bash
+    python -m venv .venv
+    ```
+3.  Activate the environment:
+    * **Linux/macOS:**
+        ```bash
+        source .venv/bin/activate
+        ```
+    * **Windows:**
+        ```bash
+        .venv\Scripts\activate
+        ```
+4.  Install the required Python packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### 3.2. Configure Environment
+
+Configure the main Flask application file:
+
+* **Linux/macOS:**
+    ```bash
+    export FLASK_APP=main.py
+    ```
+* **Windows:**
+    ```bash
+    set FLASK_APP=main.py
+    ```
+*(**Note:** Ensure your **MySQL connection details** are configured in your Flask configuration before running migrations.)*
+
+### 3.3. Initialize Database (Migrations)
+
+Set up the database schema using Flask-Migrate:
+
+1.  Initialize migrations (run once):
+    ```bash
+    flask db init
+    ```
+2.  Create the initial migration script:
+    ```bash
+    flask db migrate -m "Initial migration"
+    ```
+3.  Apply the schema to the MySQL database:
+    ```bash
+    flask db upgrade
+    ```
+
+### 3.4. Start the Backend Server
+
+Run the Flask application:
+
+```bash
+python3 main.py
