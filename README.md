@@ -1,5 +1,12 @@
+# requirements
+make sure you have node and python install in your system and mysql server
+
+
+
 # Navigate to backend directory
 cd backend
+
+# set up your mysql server
 
 # Set up virtual environment and install dependencies
 python -m venv .venv
@@ -15,12 +22,11 @@ flask db migrate -m "Initial migration"
 flask db upgrade
 
 # Start backend server
-flask run
+python3 main.py # windoes: python3 main.py
 
 
 # Navigate to frontend directory
 cd frontend
-
 # install dependencies
 npm install
 

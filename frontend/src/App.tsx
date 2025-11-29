@@ -1,33 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthStore } from '../store/useAuthStore.ts'
 
-function App() {
-  const [count, setCount] = useState(0)
+import NotFound from './pages/NotFoundPage.tsx'
+import HomePage from './pages/HomePage.tsx'
+import SignUpPage from './pages/SignUpPage.tsx'
+import SignInPage from './pages/SignInPage.tsx'
+import DashBoardPage from './pages/DashBoardPage.tsx'
 
+import { Toaster } from 'react-hot-toast'
+import { Loader } from 'lucide-react'
+
+const App = () => {
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore()
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
+
+  console.log('Auth User:', authUser)
+
+  if (isCheckingAuth && !authUser) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    )
+  }
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        {/* public path */}
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/signup"
+          element={!authUser ? <SignUpPage /> : <Navigate to="/dashboard" replace />}
+        />
+        <Route
+          path="/signin"
+          element={!authUser ? <SignInPage /> : <Navigate to="/dashboard" replace />}
+        />
+
+        {/* protected path */}
+        <Route
+          path="/dashboard"
+          element={authUser ? <DashBoardPage /> : <Navigate to="/login" replace />}
+        />
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <Toaster />
     </>
   )
 }
